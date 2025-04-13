@@ -66,6 +66,8 @@ export const bengaliQuotes = [
 // Function to get a quote based on the day of the year
 export const getDailyQuote = () => {
   const today = new Date();
-  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  const start = new Date(today.getFullYear(), 0, 0);
+  const diff = today.getTime() - start.getTime();
+  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
   return bengaliQuotes[dayOfYear % bengaliQuotes.length];
 };
