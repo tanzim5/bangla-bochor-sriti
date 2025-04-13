@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from "react";
-import { calculateYearProgress } from "@/utils/bengaliCalendar";
+import { calculateYearProgress, convertToBengaliDate } from "@/utils/bengaliCalendar";
 
 interface DotGridProps {
   theme?: "পল্লী" | "নগর" | "রূপকথা" | "ঋতু";
@@ -13,13 +12,10 @@ export const DotGrid = ({
 }: DotGridProps) => {
   const [elapsedDays, setElapsedDays] = useState(0);
   const gridSize = Math.ceil(Math.sqrt(totalDays));
-  const progress = calculateYearProgress();
+  const bengaliDate = convertToBengaliDate();
+  const daysElapsed = bengaliDate.day;
   
   useEffect(() => {
-    // Calculate days elapsed based on year progress percentage
-    const daysElapsed = Math.floor((progress / 100) * totalDays);
-    
-    // Animate dots filling in
     let count = 0;
     const interval = setInterval(() => {
       if (count < daysElapsed) {
@@ -31,7 +27,7 @@ export const DotGrid = ({
     }, 20);
     
     return () => clearInterval(interval);
-  }, [progress, totalDays]);
+  }, [daysElapsed, totalDays]);
   
   const getThemeColors = () => {
     switch (theme) {

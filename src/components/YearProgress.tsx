@@ -1,14 +1,18 @@
 
 import { useState, useEffect } from "react";
-import { calculateYearProgress, calculateRemainingDays, numberToBengali } from "../utils/bengaliCalendar";
+import { calculateYearProgress, calculateRemainingDays, numberToBengali, convertToBengaliDate } from "../utils/bengaliCalendar";
 
 const YearProgress = () => {
-  const [progress, setProgress] = useState(calculateYearProgress());
+  const bengaliDate = convertToBengaliDate();
+  // Base progress on bengali day in year
+  const dayInYear = bengaliDate.day;
+  const totalDaysInYear = 365;
+  const progress = (dayInYear / totalDaysInYear) * 100;
+  
   const [remainingDays, setRemainingDays] = useState(calculateRemainingDays());
   
   useEffect(() => {
     const updateProgress = () => {
-      setProgress(calculateYearProgress());
       setRemainingDays(calculateRemainingDays());
     };
     
@@ -24,7 +28,6 @@ const YearProgress = () => {
   return (
     <div className="w-full max-w-md mx-auto p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-md">
       <div className="mb-4 text-center">
-        <h3 className="text-lg font-medium text-bengali-teal">ক্যালেন্ডার পরিমাপক</h3>
         <p className="text-sm text-muted-foreground">বাংলা বছরের অগ্রগতি</p>
       </div>
       

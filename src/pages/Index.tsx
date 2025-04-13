@@ -30,7 +30,7 @@ const Index = () => {
       
       {/* Header */}
       <header className="text-center mt-8 md:mt-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-bengali-red font-baloo">৩৬৫ দিন</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-bengali-red font-baloo">দিনগুলি</h1>
         <p className="mt-2 text-bengali-earth text-lg md:text-xl">
           এই বছরের দিনগুলি
         </p>

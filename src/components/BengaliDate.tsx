@@ -12,6 +12,8 @@ interface BengaliDateProps {
 const BengaliDate = ({ showGregorian = true, size = "medium" }: BengaliDateProps) => {
   const bengaliDate = convertToBengaliDate();
   const today = new Date();
+  // Use bengaliDate.day directly for the day count since the new year
+  const dayCount = bengaliDate.day;
   const remainingDays = calculateRemainingDays();
   const isMobile = useIsMobile();
   
