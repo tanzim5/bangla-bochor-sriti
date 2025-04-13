@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import BengaliDate from "@/components/BengaliDate";
 import { DotGrid } from "@/components/DotGrid";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
+import DailyQuote from "@/components/DailyQuote";
 import { numberToBengali } from "@/utils/bengaliCalendar";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -50,6 +51,7 @@ const Index = () => {
         {/* Emotional Hook */}
         <div className="mt-6 md:mt-10 text-center text-bengali-teal">
           <p className="text-lg italic">আজকের দিন, একটা গল্প</p>
+          <DailyQuote />
         </div>
       </main>
       
