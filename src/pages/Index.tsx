@@ -10,9 +10,10 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const Index = () => {
-  const [theme, setTheme] = useState<"পল্লী" | "নগর" | "রূপকথা" | "ঋতু">("পল্লী");
+  const { theme: currentTheme, themeDisplayName, setTheme } = useTheme();
   const [font, setFont] = useState("hind");
   const [showGregorian, setShowGregorian] = useState(true);
   const isMobile = useIsMobile();
@@ -21,8 +22,17 @@ const Index = () => {
     <div className={`min-h-screen flex flex-col bengali-pattern font-${font} p-4 md:p-8`}>
       {/* Settings Drawer */}
       <SettingsDrawer 
-        theme={theme}
-        setTheme={(t) => setTheme(t as "পল্লী" | "নগর" | "রূপকথা" | "ঋতু")}
+        theme={themeDisplayName}
+        setTheme={(t) => {
+          // Convert Bengali display name to theme ID
+          const themeMap: Record<string, "palli" | "nagar" | "rupkotha" | "ritu"> = {
+            "পল্লী": "palli",
+            "নগর": "nagar",
+            "রূপকথা": "rupkotha",
+            "ঋতু": "ritu"
+          };
+          setTheme(themeMap[t] || "palli");
+        }}
         font={font}
         setFont={setFont}
         showGregorian={showGregorian}
@@ -46,7 +56,7 @@ const Index = () => {
         />
         
         {/* Dot Grid */}
-        <DotGrid theme={theme} />
+        <DotGrid theme={themeDisplayName} />
         
         {/* Emotional Hook */}
         <div className="mt-6 md:mt-10 text-center text-bengali-teal">

@@ -1,14 +1,15 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ThemeCard from "@/components/ThemeCard";
 import { ArrowLeft, Check } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const ThemeSelection = () => {
-  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
-  const { toast } = useToast();
+  const { theme: currentTheme, setTheme } = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(currentTheme);
+  const navigate = useNavigate();
 
   const themes = [
     {
@@ -52,13 +53,13 @@ const ThemeSelection = () => {
   const handleApplyTheme = () => {
     if (!selectedTheme) return;
     
-    const selectedThemeObj = themes.find(theme => theme.id === selectedTheme);
+    // Apply the selected theme using our context
+    setTheme(selectedTheme as "palli" | "nagar" | "rupkotha" | "ritu");
     
-    toast({
-      title: "থিম আপডেট হয়েছে",
-      description: `${selectedThemeObj?.name} থিম সফলভাবে সেট করা হয়েছে`,
-      duration: 2000,
-    });
+    // Navigate back to home page after applying theme
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
   return (
